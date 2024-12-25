@@ -28,12 +28,15 @@ const AllAssignments = () => {
     setSortOrder(newOrder);
   };
 
-  const handleDelete = (assignmentId, creatorEmail) => {
-    if (creatorEmail !== user.email) {
+  const handleDelete = (assignmentId, userEmail) => {
+    console.log("Logged-in user's email:", user.email);
+    console.log("Assignment user's email:", userEmail);
+    
+    if (userEmail !== user.email) {
       Swal.fire("Error", "You can only delete your own assignments!", "error");
       return;
     }
-
+  
     Swal.fire({
       title: "Are you sure?",
       text: "This action cannot be undone!",
@@ -60,10 +63,15 @@ const AllAssignments = () => {
             } else {
               Swal.fire("Error", data.message, "error");
             }
+          })
+          .catch((err) => {
+            Swal.fire("Error", "Something went wrong while deleting.", "error");
           });
       }
     });
   };
+  
+  
 
   if (loading) {
     return (
@@ -145,7 +153,7 @@ const AllAssignments = () => {
                       </button>
                     </Link>
                     <button
-                      onClick={() => handleDelete(assignment._id, assignment.creatorEmail)}
+                      onClick={() => handleDelete(assignment._id, assignment.userEmail)}
                       className="inline-block rounded bg-red-500 px-4 py-2 text-xs font-medium text-white hover:bg-red-600"
                     >
                       Delete

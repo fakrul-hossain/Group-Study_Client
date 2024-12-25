@@ -19,6 +19,7 @@ const AddNewAssignments = () => {
     const description = form.description.value;
     const image = form.image.value;
     const difficulty = form.difficulty.value;
+    const marks = form.marks.value; // Get the marks from the form
     const userEmail = user?.email || "N/A";
     const userName = user?.displayName || "Anonymous";
 
@@ -33,14 +34,26 @@ const AddNewAssignments = () => {
       return;
     }
 
+    // Validate marks field
+    if (!marks || isNaN(marks) || marks <= 0) {
+      Swal.fire({
+        title: "Error",
+        text: "Please enter a valid marks value greater than 0.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     // Create new assignment object
     const newAssignment = {
       title,
       description,
       image,
       difficulty,
+      marks, // Include marks in the new assignment object
       dueDate,
-      creationDate, 
+      creationDate,
       userEmail,
       userName,
     };
@@ -126,6 +139,32 @@ const AddNewAssignments = () => {
               </select>
             </div>
 
+            {/* Marks */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Marks
+              </label>
+              <input
+                type="number"
+                name="marks"
+                required
+                min="1"
+                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+              />
+            </div>
+ {/* Due Date */}
+ <div className="">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Due Date
+            </label>
+            <DatePicker
+              selected={dueDate}
+              onChange={(date) => setDueDate(date)}
+              dateFormat="yyyy-MM-dd"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+              required
+            />
+          </div>
             {/* User Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -153,19 +192,6 @@ const AddNewAssignments = () => {
             </div>
           </div>
 
-          {/* Creation Date */}
-          {/* <div className="mt-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Creation Date
-            </label>
-            <input
-              type="text"
-              value={creationDate}
-              readOnly
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 cursor-not-allowed"
-            />
-          </div> */}
-
           {/* Image URL */}
           <div className="mt-6">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -192,19 +218,7 @@ const AddNewAssignments = () => {
             ></textarea>
           </div>
 
-          {/* Due Date */}
-          <div className="mt-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Due Date
-            </label>
-            <DatePicker
-              selected={dueDate}
-              onChange={(date) => setDueDate(date)}
-              dateFormat="yyyy-MM-dd"
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              required
-            />
-          </div>
+         
 
           {/* Submit Button */}
           <div className="text-center mt-6">
