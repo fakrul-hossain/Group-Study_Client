@@ -1,0 +1,28 @@
+
+  
+  .activeRoute {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    font-family: sans-serif;
+  }
+  
+  .activeRoute:after {
+    display:block;
+    content: '';
+    width: inherit;
+    border-bottom: solid 3px #FACC15;  
+    border-radius: 10px;
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+  }
+  
+  .activeRoute:hover:after { transform: scaleX(1); }
+  
+  .activeRoute.from-left:after {
+    transform-origin: left;
+  }
+  
+  .activeRoute.from-right:after {
+    transform-origin: right;
+  }
