@@ -136,7 +136,7 @@ const MyCampaign = () => {
                   >
                     Delete
                   </button>
-                  <Link to={`/updateCampaign/${campaign._id}`}>
+                  <Link to={`/UpdateAssignment/${campaign._id}`}>
                     <button className="inline-block rounded bg-teal-500 px-4 py-2 text-xs font-medium text-white hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-500">
                       Update
                     </button>

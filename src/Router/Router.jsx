@@ -12,7 +12,7 @@ import MyCampaign from "../Pages/My  Campaign/myCampaign";
 import AddNewAssignments from "../Pages/Add New Campaign/AddNewAssignments";
 import MyDonations from "../Pages/My Donations/myDonations";
 import CampaignDetails from "../Pages/Campaigns Details/CampaignDetails";
-import UpdateCampaign from "../Pages/UpdateCampaign/UpdateCampaign";
+import UpdateAssignment from "../Pages/UpdateAssignment/UpdateAssignment";
 
 
 
@@ -40,9 +40,9 @@ const myCreateRoute = createBrowserRouter([
         }
       ,
         {
-          path: "/updateCampaign/:id",
-          element: <PrivateRoute><UpdateCampaign /></PrivateRoute>,
-          loader: ({params})=> fetch(`https://crowdcube-server-xi.vercel.app/campaigns/${params.id}`)
+          path: "/updateAssignment/:id",
+          element: <PrivateRoute><UpdateAssignment /></PrivateRoute>,
+          loader: ({params})=> fetch(`http://localhost:5000/assignments/${params.id}`)
         }
       ,
       {

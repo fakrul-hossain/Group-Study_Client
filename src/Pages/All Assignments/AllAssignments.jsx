@@ -31,6 +31,7 @@ const AllAssignments = () => {
   const handleDelete = (assignmentId, userEmail) => {
     console.log("Logged-in user's email:", user.email);
     console.log("Assignment user's email:", userEmail);
+    console.log(assignmentId)
     
     if (userEmail !== user.email) {
       Swal.fire("Error", "You can only delete your own assignments!", "error");
@@ -47,7 +48,7 @@ const AllAssignments = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`/assignments/${assignmentId}`, {
+        fetch(`http://localhost:5000/assignmentsDelete/${assignmentId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -55,7 +56,7 @@ const AllAssignments = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            if (data.success) {
+            if (data.acknowledged) {
               setSortedAssignments((prev) =>
                 prev.filter((assignment) => assignment._id !== assignmentId)
               );
