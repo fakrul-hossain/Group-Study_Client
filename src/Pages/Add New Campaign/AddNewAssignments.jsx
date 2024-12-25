@@ -1,69 +1,84 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Bounce } from "react-awesome-reveal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const AddNewCampaign = () => {
+const AddNewAssignments = () => {
   const { user } = useContext(AuthContext); // Access the current user's info from AuthContext
+  const [dueDate, setDueDate] = useState(null); // State for storing selected due date
+  const creationDate = new Date().toLocaleString(); // Capture current date and time for creation
 
-  const handleAddCampaign = (e) => {
+  const handleAddAssignment = (e) => {
     e.preventDefault();
     const form = e.target;
 
     // Collect form data
     const title = form.title.value;
-    const type = form.type.value;
-    const minimumDonation = form.minimumDonation.value;
-    const deadline = form.deadline.value;
-    const image = form.image.value;
     const description = form.description.value;
+    const image = form.image.value;
+    const difficulty = form.difficulty.value;
     const userEmail = user?.email || "N/A";
     const userName = user?.displayName || "Anonymous";
 
-    const newCampaign = {
+    // Validate the due date
+    if (!dueDate) {
+      Swal.fire({
+        title: "Error",
+        text: "Please select a due date.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
+    // Create new assignment object
+    const newAssignment = {
       title,
-      type,
-      minimumDonation,
-      deadline,
-      image,
       description,
+      image,
+      difficulty,
+      dueDate,
+      creationDate, 
       userEmail,
       userName,
     };
-    console.log(newCampaign);
+    console.log(newAssignment);
 
-    // Post campaign data to the server
-    fetch("https://crowdcube-server-xi.vercel.app/campaigns", {
+    // Post assignment data to the server
+    fetch("http://localhost:5000/assignments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newCampaign),
+      body: JSON.stringify(newAssignment),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
           Swal.fire({
             title: "Success!",
-            text: "Campaign added successfully!",
+            text: "Assignment created successfully!",
             icon: "success",
             confirmButtonText: "OK",
           });
           form.reset();
+          setDueDate(null); // Reset the due date after successful submission
         } else {
           Swal.fire({
             title: "Error",
-            text: "Failed to add campaign!",
+            text: "Failed to create assignment!",
             icon: "error",
             confirmButtonText: "Try Again",
           });
         }
       })
       .catch((error) => {
-        console.error("Error adding campaign:", error);
+        console.error("Error creating assignment:", error);
         Swal.fire({
           title: "Error",
-          text: "An error occurred while adding the campaign.",
+          text: "An error occurred while creating the assignment.",
           icon: "error",
           confirmButtonText: "OK",
         });
@@ -74,18 +89,17 @@ const AddNewCampaign = () => {
     <Bounce>
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold text-teal-700 dark:text-teal-400 text-center mb-8">
-          Add New Campaign
+          Add New Assignment
         </h1>
         <form
-          onSubmit={handleAddCampaign}
+          onSubmit={handleAddAssignment}
           className="max-w-3xl mx-auto bg-white dark:bg-gray-800 shadow-lg p-6 rounded-lg"
         >
-          {/* Two-column Layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {/* Campaign Title */}
+            {/* Assignment Title */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Campaign Title
+                Assignment Title
               </label>
               <input
                 type="text"
@@ -95,51 +109,24 @@ const AddNewCampaign = () => {
               />
             </div>
 
-            {/* Campaign Type */}
+            {/* Difficulty Level */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Campaign Type
+                Difficulty Level
               </label>
               <select
-                name="type"
+                name="difficulty"
                 required
                 className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
               >
-                <option value="">Select a type</option>
-                <option value="personal">Personal Issue</option>
-                <option value="startup">Startup</option>
-                <option value="business">Business</option>
-                <option value="creative">Creative Ideas</option>
+                <option value="">Select Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
               </select>
             </div>
 
-            {/* Minimum Donation */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Minimum Donation ($)
-              </label>
-              <input
-                type="number"
-                name="minimumDonation"
-                required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              />
-            </div>
-
-            {/* Deadline */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                Deadline
-              </label>
-              <input
-                type="date"
-                name="deadline"
-                required
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
-              />
-            </div>
-
-            {/* User Name (Read-Only) */}
+            {/* User Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 User Name
@@ -152,7 +139,7 @@ const AddNewCampaign = () => {
               />
             </div>
 
-            {/* User Email (Read-Only) */}
+            {/* User Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                 User Email
@@ -166,10 +153,23 @@ const AddNewCampaign = () => {
             </div>
           </div>
 
-          {/* Image Field (Full Width) */}
+          {/* Creation Date */}
+          {/* <div className="mt-6">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Creation Date
+            </label>
+            <input
+              type="text"
+              value={creationDate}
+              readOnly
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-600 cursor-not-allowed"
+            />
+          </div> */}
+
+          {/* Image URL */}
           <div className="mt-6">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Campaign Image URL
+              Assignment Image URL
             </label>
             <input
               type="text"
@@ -179,10 +179,10 @@ const AddNewCampaign = () => {
             />
           </div>
 
-          {/* Description (Full Width) */}
+          {/* Description */}
           <div className="mt-6">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Campaign Description
+              Assignment Description
             </label>
             <textarea
               name="description"
@@ -192,13 +192,27 @@ const AddNewCampaign = () => {
             ></textarea>
           </div>
 
+          {/* Due Date */}
+          <div className="mt-6">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Due Date
+            </label>
+            <DatePicker
+              selected={dueDate}
+              onChange={(date) => setDueDate(date)}
+              dateFormat="yyyy-MM-dd"
+              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+              required
+            />
+          </div>
+
           {/* Submit Button */}
           <div className="text-center mt-6">
             <button
               type="submit"
               className="px-6 py-2 bg-teal-600 dark:bg-teal-700 text-white rounded-lg hover:bg-teal-700 dark:hover:bg-teal-600"
             >
-              Add Campaign
+              Add Assignment
             </button>
           </div>
         </form>
@@ -207,4 +221,4 @@ const AddNewCampaign = () => {
   );
 };
 
-export default AddNewCampaign;
+export default AddNewAssignments;

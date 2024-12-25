@@ -3,16 +3,28 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import logo from "../../assets/logoo.png";
-import { FaHome, FaList, FaPlus, FaDonate, FaSignInAlt, FaUserPlus } from "react-icons/fa";
-import { MdLightMode, MdOutlineDarkMode, MdMenu, MdCancel } from "react-icons/md";
+import {
+  FaHome,
+  FaList,
+  FaPlus,
+  FaDonate,
+  FaSignInAlt,
+  FaUserPlus,
+} from "react-icons/fa";
+import {
+  MdLightMode,
+  MdOutlineDarkMode,
+  MdMenu,
+  MdCancel,
+} from "react-icons/md";
 import { useTheme } from "../useTheme/useTheme";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const { ChangeTheme, mode } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,15 +66,15 @@ const Navbar = () => {
             to="/"
             className="flex justify-center items-center gap-2 text-xl font-bold text-teal-600 dark:text-teal-300"
           >
-            <img src={logo} alt="Crowdcube Logo" className="h-12 w-12" />
-            <span className="hidden sm:inline capitalize">StudySphere</span>
+            <img src={logo} alt="StudySphere Logo" className="h-12 w-12" />
+            <span className="hidden sm:inline">StudySphere</span>
           </NavLink>
 
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => {
               setIsMenuOpen(!isMenuOpen);
-              setIsProfileOpen(false);
+              setIsDropdownOpen(false); // Close dropdown when menu is opened
             }}
             className="md:hidden text-gray-600 dark:text-gray-300 text-2xl"
           >
@@ -76,21 +88,14 @@ const Navbar = () => {
               Home
             </NavLink>
             <NavLink
-              to="/campaigns"
+              to="/AllAssignments"
               className={({ isActive }) => (isActive ? activeLink : normalLink)}
             >
               <FaList />
-              All Campaigns
+              All Assignments
             </NavLink>
             {user && (
               <>
-                <NavLink
-                  to="/addNewCampaign"
-                  className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                >
-                  <FaPlus />
-                  Add New Campaign
-                </NavLink>
                 <NavLink
                   to="/myCampaigns"
                   className={({ isActive }) => (isActive ? activeLink : normalLink)}
@@ -110,8 +115,7 @@ const Navbar = () => {
           </nav>
 
           {/* Auth Section */}
-          <div className="flex items-center gap-4">
-            {/* Dark Mode Toggle */}
+          <div className="relative flex items-center gap-4">
             <button onClick={ChangeTheme} aria-label="Toggle Dark Mode">
               {mode === "dark" ? (
                 <MdLightMode className="text-yellow-400 text-2xl" />
@@ -121,29 +125,54 @@ const Navbar = () => {
             </button>
 
             {user ? (
-              <div className="relative">
+              <div className="relative inline-block">
                 <img
                   src={user.photoURL || "https://via.placeholder.com/40"}
                   alt="User Profile"
-                  className="h-10 w-10 rounded-full cursor-pointer"
-                  title={user.displayName || "User"}
+                  className="h-10 w-10 rounded-full cursor-pointer border-2 border-teal-500 hover:border-teal-700"
                   onClick={() => {
-                    setIsProfileOpen(!isProfileOpen);
-                    setIsMenuOpen(false);
+                    setIsDropdownOpen(!isDropdownOpen);
+                    setIsMenuOpen(false); // Close menu when dropdown is opened
                   }}
                 />
-                {isProfileOpen && (
-                  <div className="absolute p-4 right-0 z-50 mt-2 w-64 bg-gray-100 dark:bg-gray-800 border dark:border-gray-700 rounded shadow-lg">
-                    <p className="text-gray-700 dark:text-gray-300 font-medium mb-2">
-                      {user.displayName}
-                    </p>
-                    <hr />
-                    <button
-                      onClick={handleLogOut}
-                      className="block w-full text-left text-sm font-bold bg-teal-500 dark:bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-600 dark:hover:bg-teal-700 transition-colors"
-                    >
-                      Log out
-                    </button>
+
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-10 overflow-hidden">
+                    {/* Header with User Info */}
+                    <div className="bg-teal-500 dark:bg-teal-700 text-white px-4 py-2 flex items-center gap-3">
+                      <img
+                        src={user.photoURL || "https://via.placeholder.com/40"}
+                        alt="User Avatar"
+                        className="h-10 w-10 rounded-full border-2 border-white"
+                      />
+                      <div>
+                        <p className="font-semibold">{user.displayName || "User"}</p>
+                        <p className="text-sm opacity-80">{user.email}</p>
+                      </div>
+                    </div>
+
+                    {/* Dropdown Options */}
+                    <div className="py-2">
+                    <NavLink
+                  to="/AddNewAssignments"
+                  className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                >
+                  <FaPlus />
+                  AddNewAssignments
+                </NavLink>
+                      <button
+                        onClick={() => navigate("/campaigns")}
+                        className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Settings
+                      </button>
+                      <button
+                        onClick={handleLogOut}
+                        className="block w-full px-4 py-2 font-semibold dark:hover:text-white text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-800"
+                      >
+                        Logout
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -177,16 +206,16 @@ const Navbar = () => {
                 Home
               </NavLink>
               <NavLink
-                to="/campaigns"
+                to="/AllAssignments"
                 className={({ isActive }) => (isActive ? activeLink : normalLink)}
               >
                 <FaList />
-                All Campaigns
+                AllAssignments
               </NavLink>
               {user && (
                 <>
                   <NavLink
-                    to="/addNewCampaign"
+                    to="/AddNewAssignments"
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     <FaPlus />

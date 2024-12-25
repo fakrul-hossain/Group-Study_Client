@@ -7,9 +7,9 @@ import MainLayout from "../layout/MainLayout/MainLayout";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import SignUp from "../Pages/SignUp/SignUp";
 import LogIn from "../Pages/Login/Login";
-import AllCampaign from "../Pages/All Campaign/AllCampaign";
+import AllAssignments from "../Pages/All Assignments/AllAssignments";
 import MyCampaign from "../Pages/My  Campaign/myCampaign";
-import AddNewCampaign from "../Pages/Add New Campaign/addNewCampaign";
+import AddNewAssignments from "../Pages/Add New Campaign/AddNewAssignments";
 import MyDonations from "../Pages/My Donations/myDonations";
 import CampaignDetails from "../Pages/Campaigns Details/CampaignDetails";
 import UpdateCampaign from "../Pages/UpdateCampaign/UpdateCampaign";
@@ -29,12 +29,12 @@ const myCreateRoute = createBrowserRouter([
         // loader: () => fetch("/data.json"),
       },
       {
-        path: "/campaigns",
-        element: <AllCampaign/>,
-        loader: ()=> fetch('https://crowdcube-server-xi.vercel.app/campaigns')
+        path: "/AllAssignments",
+        element: <AllAssignments/>,
+        loader: ()=> fetch('http://localhost:5000/assignments')
       },
         {
-          path: "/campaignDetails/:id",
+          path: "/assignmentDetails/:id",
           element: <PrivateRoute><CampaignDetails /></PrivateRoute>,
           loader: ({params})=> fetch(`https://crowdcube-server-xi.vercel.app/campaigns/${params.id}`)
         }
@@ -46,8 +46,8 @@ const myCreateRoute = createBrowserRouter([
         }
       ,
       {
-        path: '/addNewCampaign',
-        element:<PrivateRoute><AddNewCampaign></AddNewCampaign></PrivateRoute>
+        path: '/AddNewAssignments',
+        element:<PrivateRoute><AddNewAssignments></AddNewAssignments></PrivateRoute>
     },
       {
         path: '/myCampaigns',
