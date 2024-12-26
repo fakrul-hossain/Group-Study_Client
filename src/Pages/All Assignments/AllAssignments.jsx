@@ -10,19 +10,20 @@ const AllAssignments = () => {
   const [sortedAssignments, setSortedAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState("asc");
-   const { user } = useContext(AuthContext);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
+  const [difficultyFilter, setDifficultyFilter] = useState(""); // State for difficulty filter
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    setSortedAssignments([...assignments]);
+    // Apply filtering and sorting on initial load
+    filterAssignments(searchQuery, difficultyFilter);
     setLoading(false);
-  }, [assignments]);
+  }, [assignments, searchQuery, difficultyFilter]); // Dependencies include searchQuery and difficultyFilter
 
   const handleSort = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     const sorted = [...sortedAssignments].sort((a, b) => {
-      return newOrder === "asc"
-        ? a.marks - b.marks
-        : b.marks - a.marks;
+      return newOrder === "asc" ? a.marks - b.marks : b.marks - a.marks;
     });
     setSortedAssignments(sorted);
     setSortOrder(newOrder);
@@ -31,13 +32,13 @@ const AllAssignments = () => {
   const handleDelete = (assignmentId, userEmail) => {
     console.log("Logged-in user's email:", user.email);
     console.log("Assignment user's email:", userEmail);
-    console.log(assignmentId)
-    
+    console.log(assignmentId);
+
     if (userEmail !== user.email) {
       Swal.fire("Error", "You can only delete your own assignments!", "error");
       return;
     }
-  
+
     Swal.fire({
       title: "Are you sure?",
       text: "This action cannot be undone!",
@@ -71,6 +72,32 @@ const AllAssignments = () => {
       }
     });
   };
+
+  const handleSearch = (event) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+  };
+
+  const handleDifficultyFilter = (event) => {
+    const selectedDifficulty = event.target.value;
+    setDifficultyFilter(selectedDifficulty);
+  };
+
+  const filterAssignments = (query, difficulty) => {
+    const filteredAssignments = assignments.filter((assignment) => {
+      // Check if the title matches the search query
+      const matchesQuery = assignment.title
+        ? assignment.title.toLowerCase().includes(query)
+        : false;
+  
+      // Check if the difficulty matches the selected filter
+      const matchesDifficulty =
+        difficulty === "" || (assignment.difficulty && assignment.difficulty.toLowerCase() === difficulty.toLowerCase());
+  
+      return matchesQuery && matchesDifficulty;
+    });
+    setSortedAssignments(filteredAssignments);
+  };
   
   
 
@@ -89,7 +116,24 @@ const AllAssignments = () => {
           All Assignments
         </h1>
 
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between mb-4">
+          <input
+            type="text"
+            placeholder="Search by title..."
+            value={searchQuery}
+            onChange={handleSearch}
+            className="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+          />
+          <select
+            value={difficultyFilter}
+            onChange={handleDifficultyFilter}
+            className="px-4 py-2 border rounded-lg dark:bg-gray-700 dark:text-white"
+          >
+            <option value="">Filter by Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
           <button
             onClick={handleSort}
             className="flex items-center font-semibold bg-amber-400 text-white px-4 py-2 rounded-md hover:bg-amber-500 transition-colors duration-200 dark:bg-amber-500 dark:hover:bg-amber-600"
@@ -103,21 +147,11 @@ const AllAssignments = () => {
           <table className="min-w-full divide-y-2 divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900 text-sm rounded-lg">
             <thead>
               <tr>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
-                  Thumbnail
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
-                  Title
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
-                  Difficulty
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
-                  Marks
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
-                  Action
-                </th>
+                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">Thumbnail</th>
+                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">Title</th>
+                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">Difficulty</th>
+                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">Marks</th>
+                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-100">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
