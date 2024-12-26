@@ -30,9 +30,9 @@ const AllAssignments = () => {
   };
 
   const handleDelete = (assignmentId, userEmail) => {
-    console.log("Logged-in user's email:", user.email);
-    console.log("Assignment user's email:", userEmail);
-    console.log(assignmentId);
+    // console.log("Logged-in user's email:", user.email);
+    // console.log("Assignment user's email:", userEmail);
+    // console.log(assignmentId);
 
     if (userEmail !== user.email) {
       Swal.fire("Error", "You can only delete your own assignments!", "error");
