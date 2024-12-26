@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Bounce } from "react-awesome-reveal";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
 const AddNewAssignments = () => {
   const { user } = useContext(AuthContext); // Access the current user's info from AuthContext
@@ -59,33 +60,19 @@ const AddNewAssignments = () => {
     };
     console.log(newAssignment);
 
-    // Post assignment data to the server
-    fetch(`${import.meta.env.VITE_API_URL}/assignments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newAssignment),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Assignment created successfully!",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-          form.reset();
-          setDueDate(null); // Reset the due date after successful submission
-        } else {
-          Swal.fire({
-            title: "Error",
-            text: "Failed to create assignment!",
-            icon: "error",
-            confirmButtonText: "Try Again",
-          });
-        }
+// 
+     axios.post(`${import.meta.env.VITE_API_URL}/assignments`,newAssignment,{
+      withCredentials : true
+      })
+      .then ( () => {
+        Swal.fire({
+          title: "Success!",
+          text: "Assignment created successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        form.reset();
+        setDueDate(null);
       })
       .catch((error) => {
         console.error("Error creating assignment:", error);
@@ -96,6 +83,43 @@ const AddNewAssignments = () => {
           confirmButtonText: "OK",
         });
       });
+    // Post assignment data to the server
+  //   fetch(`${import.meta.env.VITE_API_URL}/assignments`, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(newAssignment),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.insertedId) {
+  //         Swal.fire({
+  //           title: "Success!",
+  //           text: "Assignment created successfully!",
+  //           icon: "success",
+  //           confirmButtonText: "OK",
+  //         });
+  //         form.reset();
+  //         setDueDate(null); // Reset the due date after successful submission
+  //       } else {
+  //         Swal.fire({
+  //           title: "Error",
+  //           text: "Failed to create assignment!",
+  //           icon: "error",
+  //           confirmButtonText: "Try Again",
+  //         });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error creating assignment:", error);
+  //       Swal.fire({
+  //         title: "Error",
+  //         text: "An error occurred while creating the assignment.",
+  //         icon: "error",
+  //         confirmButtonText: "OK",
+  //       });
+  //     });
   };
 
   return (

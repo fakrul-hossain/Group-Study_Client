@@ -28,6 +28,7 @@ const UpdateAssignment = () => {
     description: assignmentData?.description || "",
     difficulty: assignmentData?.difficulty || "Medium", // Default difficulty set to 'Medium'
     marks: assignmentData?.marks || "",
+    email: assignmentData?.email,
     dueDate: assignmentData?.dueDate || "",
     imageUrl: assignmentData?.imageUrl || "https://via.placeholder.com/150", // Default image URL
   });

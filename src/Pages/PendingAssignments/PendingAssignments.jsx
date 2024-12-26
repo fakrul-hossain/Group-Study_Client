@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2"; //
+import axios from "axios";
 
 const PendingAssignments = () => {
   const { user } = useContext(AuthContext); // Get the logged-in user from context
@@ -13,7 +14,12 @@ const PendingAssignments = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`${import.meta.env.VITE_API_URL}/submissions`)
+      // fetch(`${import.meta.env.VITE_API_URL}/submissions`)
+
+
+      axios.get(`${import.meta.env.VITE_API_URL}/submissions`,{
+        withCredentials: true
+      })
         .then((res) => res.json())
         .then((data) => {
           // Filter out assignments that are already marked (status is 'completed')

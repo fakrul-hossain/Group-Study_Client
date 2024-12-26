@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Bounce } from "react-awesome-reveal";
 import { FaCheckCircle } from "react-icons/fa"; // Import the check icon
+import axios from "axios";
 
 const MyAssignment = () => {
   const { user } = useContext(AuthContext);
@@ -11,19 +12,34 @@ const MyAssignment = () => {
   const [assignments, setAssignments] = useState([]);
 
   // Fetch user's assignments
+
   useEffect(() => {
+
+
+
     if (user?.email) {
-      fetch(`${import.meta.env.VITE_API_URL}/submissions?email=${user.email}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Failed to fetch assignments");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setAssignments(data);
-          setLoading(false); // Stop loading after data is fetched
-        })
+
+ axios.get(`${import.meta.env.VITE_API_URL}/submissions?email=${user.email}`,{
+  withCredentials: true
+ })
+    .then(({data}) =>{
+      setAssignments(data);
+      setLoading(false);
+    })
+
+
+      // fetch(`${import.meta.env.VITE_API_URL}/submissions?email=${user.email}`)
+
+        // .then((res) => {
+        //   if (!res.ok) {
+        //     throw new Error("Failed to fetch assignments");
+        //   }
+        //   return res.json();
+        // })
+        // .then((data) => {
+        //   setAssignments(data);
+        //   setLoading(false); // Stop loading after data is fetched
+        // })
         .catch((err) => {
           console.error("Error fetching assignments:", err);
           Swal.fire("Error", "Unable to load assignments. Please try again later.", "error");
