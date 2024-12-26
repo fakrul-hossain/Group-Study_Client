@@ -8,10 +8,10 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import SignUp from "../Pages/SignUp/SignUp";
 import LogIn from "../Pages/Login/Login";
 import AllAssignments from "../Pages/All Assignments/AllAssignments";
-import MyCampaign from "../Pages/My  Campaign/myCampaign";
+import MyAssignment from "../Pages/My Assignment/MyAssignment";
 import AddNewAssignments from "../Pages/Add New Campaign/AddNewAssignments";
 import MyDonations from "../Pages/My Donations/myDonations";
-import CampaignDetails from "../Pages/Campaigns Details/CampaignDetails";
+import AssignmentDetails from "../Pages/AssignmentDetails/AssignmentDetails";
 import UpdateAssignment from "../Pages/UpdateAssignment/UpdateAssignment";
 
 
@@ -35,8 +35,8 @@ const myCreateRoute = createBrowserRouter([
       },
         {
           path: "/assignmentDetails/:id",
-          element: <PrivateRoute><CampaignDetails /></PrivateRoute>,
-          loader: ({params})=> fetch(`https://crowdcube-server-xi.vercel.app/campaigns/${params.id}`)
+          element: <PrivateRoute><AssignmentDetails /></PrivateRoute>,
+          loader: ({params})=> fetch(`http://localhost:5000/assignments/${params.id}`)
         }
       ,
         {
@@ -50,8 +50,8 @@ const myCreateRoute = createBrowserRouter([
         element:<PrivateRoute><AddNewAssignments></AddNewAssignments></PrivateRoute>
     },
       {
-        path: '/myCampaigns',
-        element:<PrivateRoute><MyCampaign></MyCampaign></PrivateRoute>
+        path: '/myAssignment',
+        element:<PrivateRoute><MyAssignment></MyAssignment></PrivateRoute>
     },
       {
         path: "/myDonations",

@@ -16,6 +16,7 @@ import {
   MdOutlineDarkMode,
   MdMenu,
   MdCancel,
+  MdOutlinePending,
 } from "react-icons/md";
 import { useTheme } from "../useTheme/useTheme";
 
@@ -96,19 +97,14 @@ const Navbar = () => {
             </NavLink>
             {user && (
               <>
-                <NavLink
-                  to="/myCampaigns"
-                  className={({ isActive }) => (isActive ? activeLink : normalLink)}
-                >
-                  <FaList />
-                  My Campaigns
-                </NavLink>
+                
                 <NavLink
                   to="/myDonations"
                   className={({ isActive }) => (isActive ? activeLink : normalLink)}
                 >
-                  <FaDonate />
-                  My Donations
+                  <MdOutlinePending />
+
+                  Pending Assignments
                 </NavLink>
               </>
             )}
@@ -153,13 +149,22 @@ const Navbar = () => {
 
                     {/* Dropdown Options */}
                     <div className="py-2">
-                    <NavLink
+                  <div className="px-4">
+                  <NavLink
                   to="/AddNewAssignments"
                   className={({ isActive }) => (isActive ? activeLink : normalLink)}
                 >
                   <FaPlus />
                   AddNewAssignments
                 </NavLink>
+                <NavLink
+                  to="/myAssignment"
+                  className={({ isActive }) => (isActive ? activeLink : normalLink)}
+                >
+                  <FaList />
+                  My Assignment
+                </NavLink>
+                  </div>
                       <button
                         onClick={() => navigate("/campaigns")}
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -222,7 +227,7 @@ const Navbar = () => {
                     Add New Campaign
                   </NavLink>
                   <NavLink
-                    to="/myCampaigns"
+                    to="/MyAssignments"
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     <FaList />

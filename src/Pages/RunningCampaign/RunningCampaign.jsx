@@ -80,7 +80,7 @@ const RunningCampaign = () => {
                     )}
                   </p>
                 </div>
-                <Link to={`/campaignDetails/${campaign._id}`}>
+                <Link to={`/AssignmentDetails/${campaign._id}`}>
                   <button className="w-full bg-teal-600 dark:bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-700 dark:hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 mb-2">
                     See More
                   </button>
