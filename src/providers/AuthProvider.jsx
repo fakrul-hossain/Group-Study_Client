@@ -74,7 +74,7 @@ const googleProvider = new GoogleAuthProvider()
               );
               setUser(currentUser);
             } else {
-              await axios.get(`${import.meta.env.VITE_API_URL}/logout`);
+              await axios.post(`${import.meta.env.VITE_API_URL}/logout`);
               setUser(currentUser);
             }
           } catch (error) {

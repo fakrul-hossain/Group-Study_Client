@@ -1,5 +1,8 @@
 import React from "react";
 import { FaTasks, FaClipboardList, FaUsers, FaChartLine, FaRegComment, FaBell } from "react-icons/fa";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Slide } from "react-awesome-reveal";
 
 const Feature = () => {
   const ServiceCard = ({ icon, title, details }) => {
@@ -39,7 +42,7 @@ const Feature = () => {
           </div>
         </div>
 
-        <div className="-mx-4 flex flex-wrap">
+          <Slide direction="right"> <div className="-mx-4 flex flex-wrap">
           <ServiceCard
             title="Create Assignments"
             details="Easily create assignments with various difficulty levels and due dates. You can set specific instructions for each task."
@@ -70,7 +73,8 @@ const Feature = () => {
             details="Get notified in real-time when assignments are graded or when peers provide feedback."
             icon={<FaBell size={36} className="text-white" />}
           />
-        </div>
+        </div></Slide>
+       
       </div>
     </section>
   );

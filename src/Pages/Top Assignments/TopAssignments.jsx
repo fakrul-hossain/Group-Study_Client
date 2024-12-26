@@ -106,7 +106,7 @@ const TopAssignments = () => {
       </Zoom>
 
       <div className="text-center mt-8">
-        <Link to={"/assignments"}>
+        <Link to={"/AllAssignments"}>
           <button className="bg-teal-600 dark:bg-teal-500 text-white py-2 px-6 rounded-md hover:bg-teal-700 dark:hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
             Show All Assignments
           </button>

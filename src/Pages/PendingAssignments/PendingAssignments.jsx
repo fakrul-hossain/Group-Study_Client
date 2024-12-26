@@ -20,8 +20,8 @@ const PendingAssignments = () => {
       axios.get(`${import.meta.env.VITE_API_URL}/submissions`,{
         withCredentials: true
       })
-        .then((res) => res.json())
-        .then((data) => {
+        // .then((res) => res.json())
+        .then(({data}) => {
           // Filter out assignments that are already marked (status is 'completed')
           const unmarkedAssignments = data.filter(
             (assignment) => assignment.status === "pending"
