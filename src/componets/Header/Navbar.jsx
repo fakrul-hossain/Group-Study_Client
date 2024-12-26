@@ -166,7 +166,7 @@ const Navbar = () => {
                 </NavLink>
                   </div>
                       <button
-                        onClick={() => navigate("/campaigns")}
+                        onClick={() => navigate("/allAssignments")}
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
                         Settings
@@ -224,21 +224,21 @@ const Navbar = () => {
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     <FaPlus />
-                    Add New Campaign
+                    Add New Assignments
                   </NavLink>
                   <NavLink
-                    to="/MyAssignments"
+                    to="/myAssignment"
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     <FaList />
-                    My Campaigns
+                    My Assignments
                   </NavLink>
                   <NavLink
-                    to="/PendingAssignments"
+                    to="/pendingAssignments"
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     <FaDonate />
-                    My Donations
+                    Pending Assignments
                   </NavLink>
                 </>
               )}

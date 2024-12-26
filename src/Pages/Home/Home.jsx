@@ -6,7 +6,9 @@ import { useLoaderData } from 'react-router-dom';
 import SimpleSlider from '../../componets/Header/Carousel';
 import AIFeaturesSection from './AIFeaturesSection';
 import Success from './Success';
-import RunningCampaign from '../RunningCampaign/RunningCampaign';
+import TopAssignments from '../Top Assignments/TopAssignments';
+import Feature from './Feature';
+
 
 
 
@@ -21,8 +23,10 @@ const Home = () => {
         <div>
              <SimpleSlider/>
            <div className="py-10">
-           <RunningCampaign></RunningCampaign>
+           <TopAssignments></TopAssignments>
+           <Feature></Feature>
            </div>
+
              <Success/>
              <AIFeaturesSection/>
            <div className="mt-12">

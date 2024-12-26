@@ -46,6 +46,7 @@ const AssignmentDetails = () => {
               class="w-full p-2 border border-gray-300 rounded-md"
               rows="3"
               placeholder="Add a quick note (optional)"
+              required
             ></textarea>
           </div>
         </form>
@@ -56,7 +57,7 @@ const AssignmentDetails = () => {
       preConfirm: () => {
         const docsLink = document.getElementById("docsLink").value;
         const quickNote = document.getElementById("quickNote").value;
-        if (!docsLink) {
+        if (docsLink && quickNote) {
           Swal.showValidationMessage("Google Docs link is required");
         }
         return { docsLink, quickNote };
