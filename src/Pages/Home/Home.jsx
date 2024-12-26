@@ -8,6 +8,7 @@ import AIFeaturesSection from './AIFeaturesSection';
 import Success from './Success';
 import TopAssignments from '../Top Assignments/TopAssignments';
 import Feature from './Feature';
+import FAQ from './FAQ';
 
 
 
@@ -29,6 +30,7 @@ const Home = () => {
 
              <Success/>
              <AIFeaturesSection/>
+             <FAQ></FAQ>
            <div className="mt-12">
            </div>
 
