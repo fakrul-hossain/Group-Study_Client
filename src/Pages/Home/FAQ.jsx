@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { FaQuestionCircle, FaRegLightbulb, FaUserAlt, FaFileAlt, FaClock } from "react-icons/fa";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Slide } from "react-awesome-reveal";
 
 const FAQ = () => {
   const AccordionItem = ({ header, text, icon }) => {
@@ -57,8 +61,10 @@ const FAQ = () => {
         </div>
 
         <div className="-mx-4 flex flex-wrap">
+        {/* <Slide direction="left">...</Slide> */}
           <div className="w-full px-4 lg:w-1/2">
-            <AccordionItem
+          <Slide direction="left">
+          <AccordionItem
               header="How do I create assignments?"
               text="To create assignments, simply log in to your account, go to the 'Create Assignments' page, and fill in the details for your assignment including title, description, difficulty, and due date."
               icon={<FaFileAlt size={24} />}
@@ -73,9 +79,12 @@ const FAQ = () => {
               text="Yes, you can update assignments you’ve created anytime. Just go to the 'My Campaigns' section and select 'Update'."
               icon={<FaRegLightbulb size={24} />}
             />
+          </Slide>
+            
           </div>
           <div className="w-full px-4 lg:w-1/2">
-            <AccordionItem
+           <Slide direction="right">
+           <AccordionItem
               header="What if I don't know how to create an assignment?"
               text="We provide helpful guides and tips within the platform to assist you in creating effective assignments. You can also get help from other users."
               icon={<FaQuestionCircle size={24} />}
@@ -90,6 +99,7 @@ const FAQ = () => {
               text="If you face any issues, check out our FAQ section or contact support. We're here to help you with any problems you may encounter."
               icon={<FaQuestionCircle size={24} />}
             />
+           </Slide>
           </div>
         </div>
       </div>
