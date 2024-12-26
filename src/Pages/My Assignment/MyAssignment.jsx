@@ -3,10 +3,10 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Bounce } from "react-awesome-reveal";
+import { FaCheckCircle } from "react-icons/fa"; // Import the check icon
 
 const MyAssignment = () => {
   const { user } = useContext(AuthContext);
-  console.log(user)
   const [loading, setLoading] = useState(true);
   const [assignments, setAssignments] = useState([]);
 
@@ -71,14 +71,26 @@ const MyAssignment = () => {
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-gray-200">
                       {assignment.title}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-red-700 dark:text-red-300">
-                      {assignment.status || "Pending"}
+                    <td
+                      className={`whitespace-nowrap px-4 py-2 flex items-center gap-2 ${
+                        assignment.status === "completed"
+                          ? "text-green-700 dark:text-green-300"
+                          : "text-red-700 dark:text-red-300"
+                      }`}
+                    >
+                      {assignment.status === "completed" ? (
+                        <>
+                          <FaCheckCircle /> Complete
+                        </>
+                      ) : (
+                        "pending"
+                      )}
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-300">
                       {assignment.marks || "N/A"}
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-300">
-                      {assignment.obtainedMarks ? assignment.obtainedMarks : "Not Graded"}
+                      {assignment.obtainMarks ? assignment.obtainMarks : "Not Graded"}
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-300">
                       {assignment.feedback || "No feedback yet"}

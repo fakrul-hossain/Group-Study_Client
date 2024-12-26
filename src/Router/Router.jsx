@@ -10,7 +10,7 @@ import LogIn from "../Pages/Login/Login";
 import AllAssignments from "../Pages/All Assignments/AllAssignments";
 import MyAssignment from "../Pages/My Assignment/MyAssignment";
 import AddNewAssignments from "../Pages/Add New Campaign/AddNewAssignments";
-import MyDonations from "../Pages/My Donations/myDonations";
+import PendingAssignments from "../Pages/PendingAssignments/PendingAssignments";
 import AssignmentDetails from "../Pages/AssignmentDetails/AssignmentDetails";
 import UpdateAssignment from "../Pages/UpdateAssignment/UpdateAssignment";
 
@@ -54,8 +54,8 @@ const myCreateRoute = createBrowserRouter([
         element:<PrivateRoute><MyAssignment></MyAssignment></PrivateRoute>
     },
       {
-        path: "/myDonations",
-        element: <PrivateRoute><MyDonations></MyDonations></PrivateRoute>,
+        path: "/pendingAssignments",
+        element: <PrivateRoute><PendingAssignments></PendingAssignments></PrivateRoute>,
       },
       
       {

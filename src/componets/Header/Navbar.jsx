@@ -99,7 +99,7 @@ const Navbar = () => {
               <>
                 
                 <NavLink
-                  to="/myDonations"
+                  to="/pendingAssignments"
                   className={({ isActive }) => (isActive ? activeLink : normalLink)}
                 >
                   <MdOutlinePending />
@@ -234,7 +234,7 @@ const Navbar = () => {
                     My Campaigns
                   </NavLink>
                   <NavLink
-                    to="/myDonations"
+                    to="/PendingAssignments"
                     className={({ isActive }) => (isActive ? activeLink : normalLink)}
                   >
                     <FaDonate />
