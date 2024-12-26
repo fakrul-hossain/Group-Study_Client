@@ -28,30 +28,35 @@ REACT_APP_BACKEND_URL=your_backend_server_url
 ``` 
 
 ---
-
+## Live Site URL  
+[Visit Study Sphere](https://study-sphere-fakrul.netlify.app/) 
 ## Installation
 
-1. Clone the repository:
+1. Clone Client repository:
    ```bash
    git clone https://github.com/programming-hero-web-course2/b10a11-client-side-fakrul-hossain.git
    ```
+2. Clone Server  repository:
+   ```bash
+   git clone https://github.com/programming-hero-web-course2/b10a11-server-side-fakrul-hossain
+   ```
 
-2. Navigate to the project directory:
+3. Navigate to the project directory:
    ```bash
    cd study-sphere-frontend
    ```
 
-3. Install dependencies:
+4. Install dependencies:
    ```bash
    npm install
    ```
 
-4. Run the development server:
+5. Run the development server:
    ```bash
    npm start
    ```
 
-5. Build for production:
+6. Build for production:
    ```bash
    npm run build
    ```
