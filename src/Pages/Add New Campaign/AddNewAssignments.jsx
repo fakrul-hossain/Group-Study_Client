@@ -60,7 +60,7 @@ const AddNewAssignments = () => {
     console.log(newAssignment);
 
     // Post assignment data to the server
-    fetch("http://localhost:5000/assignments", {
+    fetch(`${import.meta.env.VITE_API_URL}/assignments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

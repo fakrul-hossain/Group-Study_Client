@@ -13,7 +13,7 @@ const PendingAssignments = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch("http://localhost:5000/submissions")
+      fetch(`${import.meta.env.VITE_API_URL}/submissions`)
         .then((res) => res.json())
         .then((data) => {
           // Filter out assignments that are already marked (status is 'completed')
@@ -41,7 +41,7 @@ const PendingAssignments = () => {
     }
   
     // Update the status and submit obtainMarks along with feedback to the backend
-    fetch(`http://localhost:5000/submissions/${assignmentId}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/submissions/${assignmentId}`, {
       method: "PATCH", // Using PUT to update existing data
       body: JSON.stringify({
         obtainMarks: marks, // Add obtainMarks field

@@ -13,6 +13,8 @@ import AddNewAssignments from "../Pages/Add New Campaign/AddNewAssignments";
 import PendingAssignments from "../Pages/PendingAssignments/PendingAssignments";
 import AssignmentDetails from "../Pages/AssignmentDetails/AssignmentDetails";
 import UpdateAssignment from "../Pages/UpdateAssignment/UpdateAssignment";
+import { assignmentsDetails, updateAssignment } from "../utilities/utilities";
+
 
 
 
@@ -31,18 +33,18 @@ const myCreateRoute = createBrowserRouter([
       {
         path: "/AllAssignments",
         element: <AllAssignments/>,
-        loader: ()=> fetch('http://localhost:5000/assignments')
+        loader: ()=> fetch(`${import.meta.env.VITE_API_URL}/assignments`)
       },
         {
           path: "/assignmentDetails/:id",
           element: <PrivateRoute><AssignmentDetails /></PrivateRoute>,
-          loader: ({params})=> fetch(`http://localhost:5000/assignments/${params.id}`)
+          loader: ({params}) => assignmentsDetails(params.id)
         }
       ,
         {
           path: "/updateAssignment/:id",
           element: <PrivateRoute><UpdateAssignment /></PrivateRoute>,
-          loader: ({params})=> fetch(`http://localhost:5000/assignments/${params.id}`)
+          loader: ({params})=> updateAssignment(params.id)
         }
       ,
       {

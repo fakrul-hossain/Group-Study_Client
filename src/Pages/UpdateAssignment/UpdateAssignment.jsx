@@ -45,7 +45,7 @@ const UpdateAssignment = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:5000/assignments/${assignmentData._id}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/assignments/${assignmentData._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

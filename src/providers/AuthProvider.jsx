@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types'; 
 import auth from '../Firebase/firebase.config';
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
+import axios from 'axios';
 
 
 
@@ -44,17 +45,45 @@ const googleProvider = new GoogleAuthProvider()
         return signOut(auth)
     }
     // observe auth state change
-   useEffect(()=>{
-    const unSubscribe = onAuthStateChanged(auth,createUser =>{
+//    useEffect(()=>{
+//     const unSubscribe = onAuthStateChanged(auth,createUser =>{
         
-        // console.log('current user value of the current user.',createUser);
-        setUser(createUser)
-        setLoading(false);
-    });
-    return () =>{
-        unSubscribe();
-    }
-   },[])
+//         // console.log('current user value of the current user.',createUser);
+//         setUser(createUser)
+//         setLoading(false);
+
+       
+//     });
+
+//     return () =>{
+//         unSubscribe();
+//     }
+//    },[])
+
+
+
+    useEffect(() => {
+        
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+          try {
+            if (currentUser?.email) {
+              await axios.post(`
+                ${import.meta.env.VITE_API_URL}/jwt`,
+                { email: currentUser.email },
+                { withCredentials: true }
+              );
+              setUser(currentUser);
+            } else {
+              await axios.get(`${import.meta.env.VITE_API_URL}/logout`);
+              setUser(currentUser);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+          setLoading(false);
+        });
+        return () => unsubscribe();
+    },[]);
 
     const authInfo = {
         user,

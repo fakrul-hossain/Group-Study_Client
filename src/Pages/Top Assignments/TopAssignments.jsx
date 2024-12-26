@@ -8,7 +8,7 @@ const TopAssignments = () => {
 
   // Fetch top assignments from the database
   useEffect(() => {
-    fetch("http://localhost:5000/assignments") // Replace with your API endpoint
+    fetch(`${import.meta.env.VITE_API_URL}/assignments`) // Replace with your API endpoint
       .then((response) => response.json())
       .then((data) => {
         const currentDate = new Date();

@@ -49,7 +49,7 @@ const AllAssignments = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/assignmentsDelete/${assignmentId}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/assignmentsDelete/${assignmentId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

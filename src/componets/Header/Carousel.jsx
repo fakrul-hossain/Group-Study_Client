@@ -27,35 +27,36 @@ export default function SimpleSlider() {
   const slides = [
     {
       src: bannerImg1,
-      title: "Empower Creative Ideas.",
-      description: "Help innovators bring their dreams to life with your support.",
-      buttons: ["View Campaigns", "Learn More"],
+      title: "Collaborate and Learn Together.",
+      description: "Join an online study group where friends empower each other.",
+      buttons: ["Start Learning", "Join a Group"],
     },
     {
       src: bannerImg2,
-      title: "Support Startups for a Better Future.",
-      description: "Help entrepreneurs turn their vision into reality.",
-      buttons: ["Explore Startups", "Get Involved"],
+      title: "Create and Share Assignments.",
+      description: "Easily create assignments and collaborate with your peers.",
+      buttons: ["Create Now", "Explore Assignments"],
     },
     {
       src: bannerImg3,
-      title: "Join Hands to Tackle Emergencies.",
-      description: "Your donation can save lives in critical situations.",
-      buttons: ["Donate Now", "Learn More"],
+      title: "Evaluate and Provide Feedback.",
+      description: "Grade your friends’ work and help them improve through constructive feedback.",
+      buttons: ["Grade Assignments", "View Submissions"],
     },
     {
       src: bannerImg4,
-      title: "Fund Medical Emergencies.",
-      description: "Make a difference by funding essential medical care.",
-      buttons: ["Start Donating", "See Campaigns"],
+      title: "Track Your Study Progress.",
+      description: "Stay on top of your learning goals with organized assignment tracking.",
+      buttons: ["My Assignments", "Check Progress"],
     },
     {
       src: bannerImg5,
-      title: "Support Rural Communities.",
-      description: "Help uplift underprivileged areas with your contribution.",
-      buttons: ["View Programs", "Make a Donation"],
+      title: "Learn Anytime, Anywhere.",
+      description: "Enjoy a seamless study experience with our fully responsive platform.",
+      buttons: ["Get Started", "Learn More"],
     },
   ];
+  
 
   return (
     <div

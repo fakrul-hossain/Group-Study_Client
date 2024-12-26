@@ -81,7 +81,7 @@ const AssignmentDetails = () => {
           submittedAt: new Date().toISOString(),
         };
   
-        fetch("http://localhost:5000/submissions", {
+        fetch(`${import.meta.env.VITE_API_URL}/submissions`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(submissionData),
