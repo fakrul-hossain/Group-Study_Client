@@ -34,11 +34,11 @@ REACT_APP_BACKEND_URL=your_backend_server_url
 
 1. Clone Client repository:
    ```bash
-   git clone https://github.com/programming-hero-web-course2/b10a11-client-side-fakrul-hossain.git
+   git clone https://github.com/fakrul-hossain/Group-Study_Client
    ```
 2. Clone Server  repository:
    ```bash
-   git clone https://github.com/programming-hero-web-course2/b10a11-server-side-fakrul-hossain
+   git clone hthttps://github.com/fakrul-hossain/Group-Study_Server
    ```
 
 3. Navigate to the project directory:
